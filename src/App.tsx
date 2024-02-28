@@ -12,15 +12,17 @@ function App() {
             option from the dropdown
           </p>
 
-          <input
-            type="text"
-            value={"yooo"}
-            className="rounded-s-md border-2 border-zinc-100 px-2 py-1 text-zinc-700"
-          />
+          <div className="mt-10 flex md:mt-4">
+            <input
+              type="text"
+              value={""}
+              className="rounded-s-md border-2 border-zinc-100 px-2 py-1 text-zinc-700"
+            />
 
-          <button className="rounded-e-md border-2 border-zinc-100 px-2 py-1 hover:border-zinc-700 hover:text-zinc-700">
-            Search
-          </button>
+            <button className="rounded-e-md border-2 border-zinc-100 px-2 py-1 hover:border-zinc-700 hover:text-zinc-700">
+              Search
+            </button>
+          </div>
         </div>
       </main>
     </>
