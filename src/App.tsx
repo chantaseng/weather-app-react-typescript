@@ -1,4 +1,14 @@
+import { useState } from "react";
+
 function App() {
+  const [input, setInput] = useState("");
+
+  const onInputChange = (e) => {
+    console.log(e.target.value);
+  };
+
+  // https://api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+
   return (
     <>
       <main className="bg-sunset flex h-[100vh] w-full items-center justify-center bg-auto bg-center">
@@ -15,8 +25,9 @@ function App() {
           <div className="mt-10 flex md:mt-4">
             <input
               type="text"
-              value={""}
+              value={input}
               className="rounded-s-md border-2 border-zinc-100 px-2 py-1 text-zinc-700"
+              onChange={onInputChange}
             />
 
             <button className="rounded-e-md border-2 border-zinc-100 px-2 py-1 hover:border-zinc-700 hover:text-zinc-700">
