@@ -9,7 +9,7 @@ function App() {
     <>
       <main className="bg-sunset flex h-[100vh] w-full items-center justify-center bg-auto bg-center">
         {forecast ? (
-          "we have a forecast"
+          forecast.sunrise
         ) : (
           <Search
             input={input}
