@@ -1,58 +1,21 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { optionType } from "./types";
+import { ChangeEvent } from "react";
+import { optionType } from "../types";
 
-function App() {
-  const [input, setInput] = useState<string>("");
-  const [options, setOptions] = useState<[]>([]);
-  const [city, setCity] = useState<optionType | null>(null);
+type Props = {
+  input: string;
+  options: [];
+  onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onOptionSelect: (option: optionType) => void;
+  onSubmit: () => void;
+};
 
-  const key = import.meta.env.VITE_REACT_APP_API_KEY;
-
-  const getSearchOptions = (location: string) => {
-    fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${location}&limit=5&appid=${key}`,
-    )
-      .then((res) => res.json())
-      .then((data) => setOptions(data));
-  };
-
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const location = e.target.value;
-    setInput(location);
-
-    getSearchOptions(location);
-  };
-
-  const getForecast = (city: optionType) => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${key}
-      `,
-    )
-      .then((res) => res.json())
-      .then((data) => console.log({ data }));
-  };
-
-  const onSubmit = () => {
-    if (!city) return;
-
-    getForecast(city);
-  };
-
-  const onOptionSelect = (option: optionType) => {
-    setCity(option);
-  };
-
-  useEffect(() => {
-    if (city) {
-      setInput(city.name);
-      setOptions([]);
-    }
-  }, [city]);
-
-  // https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key} --- SPECIFIC LOCATION
-
-  // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key} --- TYPING FOR OPTIONS OF LOCATION
-
+function Search({
+  input,
+  options,
+  onInputChange,
+  onOptionSelect,
+  onSubmit,
+}: Props) {
   return (
     <>
       <main className="bg-sunset flex h-[100vh] w-full items-center justify-center bg-auto bg-center">
@@ -100,4 +63,4 @@ function App() {
   );
 }
 
-export default App;
+export default Search;
