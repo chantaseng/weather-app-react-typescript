@@ -1,4 +1,5 @@
 import Search from "./components/Search";
+import Forecast from "./components/Forecast";
 import useForecast from "./hooks/useForecast";
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
     <>
       <main className="bg-sunset flex h-[100vh] w-full items-center justify-center bg-auto bg-center">
         {forecast ? (
-          forecast.sunrise
+          <Forecast data={forecast} />
         ) : (
           <Search
             input={input}
