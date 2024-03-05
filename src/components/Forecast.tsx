@@ -36,7 +36,25 @@ function Forecast({ data }: Props) {
           </p>
         </section>
 
-        <section></section>
+        <section className="mb-5 mt-4 flex overflow-x-scroll pb-2">
+          {data.list.map((item, i) => (
+            <div
+              className="inline-block w-[50px] flex-shrink-0 text-center"
+              key={i}
+            >
+              <p className="text-sm">
+                {i === 0 ? "Now" : new Date(item.dt * 1000).getHours()}
+              </p>
+              <img
+                src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                alt={`weather-icon-${item.weather[0].description}`}
+              />
+              <p className="text-sm font-bold">
+                <Degree temp={Math.round(item.main.temp)} />
+              </p>
+            </div>
+          ))}
+        </section>
       </div>
     </div>
   );
