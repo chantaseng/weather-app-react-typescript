@@ -1,3 +1,4 @@
+import { BsSunriseFill, BsSunsetFill } from "react-icons/bs";
 import { forecastType } from "../types";
 
 type Props = {
@@ -13,6 +14,17 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
 
 function Forecast({ data }: Props) {
   const today = data.list[0];
+
+  const getSunTime = (timestamp: number): string => {
+    const date = new Date(timestamp * 1000);
+    let hours = date.getHours().toString();
+    let minutes = date.getMinutes().toString();
+
+    if (hours.length <= 1) hours = `0${hours}`;
+    if (minutes.length <= 1) minutes = `0${minutes}`;
+
+    return `${hours}:${minutes}`;
+  };
 
   return (
     // <div className="flex h-full w-full flex-col items-center justify-center rounded bg-white bg-opacity-20 p-4 text-center text-zinc-100 drop-shadow-lg backdrop-blur-lg md:max-w-[500px] md:px-10 lg:h-[500px] lg:p-24">
@@ -54,6 +66,17 @@ function Forecast({ data }: Props) {
               </p>
             </div>
           ))}
+        </section>
+
+        <section className="flex justify-between text-zinc-700">
+          <div className="bacdrop-blur-lg mb-5 flex w-[120px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg">
+            <BsSunriseFill className="text-xl" />
+            <span className="mt-2">{getSunTime(data.sunrise)}</span>
+          </div>
+          <div className="bacdrop-blur-lg mb-5 flex w-[120px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg">
+            <BsSunsetFill className="text-xl" />
+            <span className="mt-2">{getSunTime(data.sunset)}</span>
+          </div>
         </section>
       </div>
     </div>
