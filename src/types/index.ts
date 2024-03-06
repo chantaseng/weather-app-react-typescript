@@ -10,6 +10,7 @@ export type forecastType = {
   country: string;
   sunrise: number;
   sunset: number;
+  timezone: number;
   list: [
     {
       dt: number;

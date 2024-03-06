@@ -19,9 +19,11 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
 function Forecast({ data }: Props) {
   const today = data.list[0];
 
-  const getSunTime = (timestamp: number): string => {
-    const date = new Date(timestamp * 1000);
-    let hours = date.getHours().toString();
+  const getSunTime = (timestamp: number, timezoneOffset: number): string => {
+    const date = new Date((timestamp + timezoneOffset) * 1000);
+    console.log(timestamp);
+    console.log(timezoneOffset);
+    let hours = date.getUTCHours().toString();
     let minutes = date.getMinutes().toString();
 
     if (hours.length <= 1) hours = `0${hours}`;
@@ -111,11 +113,15 @@ function Forecast({ data }: Props) {
         <section className="flex flex-wrap justify-between text-zinc-700">
           <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
             <BsSunriseFill className="text-xl" />
-            <span className="mt-2">{getSunTime(data.sunrise)}</span>
+            <span className="mt-2">
+              {getSunTime(data.sunrise, data.timezone)}
+            </span>
           </div>
           <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
             <BsSunsetFill className="text-xl" />
-            <span className="mt-2">{getSunTime(data.sunset)}</span>
+            <span className="mt-2">
+              {getSunTime(data.sunset, data.timezone)}
+            </span>
           </div>
 
           <Tile
