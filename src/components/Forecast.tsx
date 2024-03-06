@@ -45,6 +45,13 @@ function Forecast({ data }: Props) {
     return "N";
   };
 
+  const getHumidityValue = (level: number): string => {
+    if (level <= 55) return "Dry and comfortable";
+    if (level > 55 && level <= 65) return "A bit uncomfortable, sticky feeling";
+
+    return "Lots of moisture, uncomfortable air";
+  };
+
   return (
     // <div className="flex h-full w-full flex-col items-center justify-center rounded bg-white bg-opacity-20 p-4 text-center text-zinc-100 drop-shadow-lg backdrop-blur-lg md:max-w-[500px] md:px-10 lg:h-[500px] lg:p-24">
     // </div>
@@ -113,6 +120,13 @@ function Forecast({ data }: Props) {
           />
 
           {/* humidity <WiHumidity /> */}
+
+          <Tile
+            icon={<WiHumidity />}
+            title="Humidity"
+            info={`${today.main.humidity}%`}
+            description={getHumidityValue(today.main.humidity)}
+          />
           {/* precipitation <PiDrop /> */}
           {/* pressure <WiBarometer /> */}
           {/* visibility <PiEyeBold /> */}
