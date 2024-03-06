@@ -105,6 +105,13 @@ function Forecast({ data }: Props) {
             description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
           />
           {/* feels like <LiaTemperatureHighSolid /> */}
+          <Tile
+            icon={<LiaTemperatureHighSolid />}
+            title="Feels like"
+            info={<Degree temp={Math.round(today.main.feels_like)} />}
+            description={`Feels ${Math.round(today.main.feels_like) < Math.round(today.main.temp) ? "colder" : "warmer"}`}
+          />
+
           {/* humidity <WiHumidity /> */}
           {/* precipitation <PiDrop /> */}
           {/* pressure <WiBarometer /> */}
