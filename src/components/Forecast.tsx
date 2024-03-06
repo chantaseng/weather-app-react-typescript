@@ -52,9 +52,23 @@ function Forecast({ data }: Props) {
     return "Lots of moisture, uncomfortable air";
   };
 
+  const getPrecipitation = (value: number): string => {
+    if (value <= 0.33) return "Low probability";
+    if (value > 0.33 && value <= 0.66) return "Moderate probability";
+
+    return "High probability";
+  };
+
+  const getVisibilityValue = (number: number): string => {
+    if (number <= 50) return "Dangerously foggy";
+    if (number > 50 && number <= 500) return "Expect heavy fog";
+    if (number > 500 && number <= 2000) return "Expect some fog";
+    if (number > 2000 && number <= 9000) return "Expect some haze";
+
+    return "Very clear day";
+  };
+
   return (
-    // <div className="flex h-full w-full flex-col items-center justify-center rounded bg-white bg-opacity-20 p-4 text-center text-zinc-100 drop-shadow-lg backdrop-blur-lg md:max-w-[500px] md:px-10 lg:h-[500px] lg:p-24">
-    // </div>
     <div className="h-full w-full rounded bg-white bg-opacity-20 py-4 drop-shadow-lg backdrop-blur-lg md:max-w-[500px] md:px-10 md:py-4 lg:px-24">
       <div className="mx-auto w-[300px]">
         <section className="text-center">
@@ -104,14 +118,13 @@ function Forecast({ data }: Props) {
             <span className="mt-2">{getSunTime(data.sunset)}</span>
           </div>
 
-          {/* wind <PiWindBold /> */}
           <Tile
             icon={<PiWindBold />}
             title="Wind"
             info={`${Math.round(today.wind.speed)} km/h`}
             description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
           />
-          {/* feels like <LiaTemperatureHighSolid /> */}
+
           <Tile
             icon={<LiaTemperatureHighSolid />}
             title="Feels like"
@@ -119,17 +132,33 @@ function Forecast({ data }: Props) {
             description={`Feels ${Math.round(today.main.feels_like) < Math.round(today.main.temp) ? "colder" : "warmer"}`}
           />
 
-          {/* humidity <WiHumidity /> */}
-
           <Tile
             icon={<WiHumidity />}
             title="Humidity"
             info={`${today.main.humidity}%`}
             description={getHumidityValue(today.main.humidity)}
           />
-          {/* precipitation <PiDrop /> */}
-          {/* pressure <WiBarometer /> */}
-          {/* visibility <PiEyeBold /> */}
+
+          <Tile
+            icon={<PiDrop />}
+            title="Precipitation"
+            info={`${Math.round(today.pop)}%`}
+            description={`${getPrecipitation(today.pop)}, clouds at ${today.clouds.all}%`}
+          />
+
+          <Tile
+            icon={<WiBarometer />}
+            title="Pressure"
+            info={`${today.main.pressure} hPa`}
+            description={`${Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"} than standard`}
+          />
+
+          <Tile
+            icon={<PiEyeBold />}
+            title="Visibility"
+            info={`${(today.visibility / 1000).toFixed()} km`}
+            description={getVisibilityValue(today.visibility)}
+          />
         </section>
       </div>
     </div>

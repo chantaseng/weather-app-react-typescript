@@ -43,7 +43,7 @@ function Search({
                   className="w-full cursor-pointer px-2 py-1 text-left text-sm hover:bg-zinc-700 hover:text-white"
                   onClick={() => onOptionSelect(option)}
                 >
-                  {option.name}
+                  {option.name}, {option.country}
                 </button>
               </li>
             ))}
