@@ -102,7 +102,7 @@ function Forecast({ data }: Props) {
             icon={<PiWindBold />}
             title="Wind"
             info={`${Math.round(today.wind.speed)} km/h`}
-            description={`${today.weather[0].description}`}
+            description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
           />
           {/* feels like <LiaTemperatureHighSolid /> */}
           {/* humidity <WiHumidity /> */}
