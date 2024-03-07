@@ -1,9 +1,9 @@
 import { forecastType } from "../types";
+import Tile from "./Tile";
 import { BsSunriseFill, BsSunsetFill } from "react-icons/bs";
 import { PiDrop, PiEyeBold, PiWindBold } from "react-icons/pi";
 import { LiaTemperatureHighSolid } from "react-icons/lia";
 import { WiBarometer, WiHumidity } from "react-icons/wi";
-import Tile from "./Tile";
 
 type Props = {
   data: forecastType;
@@ -166,11 +166,10 @@ function Forecast({ data }: Props) {
             description={getVisibilityValue(today.visibility)}
           />
         </section>
+        {/* <button>Back</button> */}
       </div>
     </div>
   );
 }
 
 export default Forecast;
-
-// initial div i remove lg:h-auto
