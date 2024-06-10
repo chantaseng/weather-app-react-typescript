@@ -7,6 +7,7 @@ import { WiBarometer, WiHumidity } from "react-icons/wi";
 
 type Props = {
   data: forecastType;
+  onReset: () => void;
 };
 
 const Degree = ({ temp }: { temp: number }): JSX.Element => (
@@ -16,7 +17,7 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
   </span>
 );
 
-function Forecast({ data }: Props) {
+function Forecast({ data, onReset }: Props) {
   const today = data.list[0];
 
   const getSunTime = (timestamp: number, timezoneOffset: number): string => {
@@ -166,7 +167,7 @@ function Forecast({ data }: Props) {
             description={getVisibilityValue(today.visibility)}
           />
         </section>
-        {/* <button>Back</button> */}
+        <span onClick={onReset}>button</span>
       </div>
     </div>
   );

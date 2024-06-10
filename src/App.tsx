@@ -3,14 +3,21 @@ import Forecast from "./components/Forecast";
 import useForecast from "./hooks/useForecast";
 
 function App() {
-  const { input, options, forecast, onInputChange, onOptionSelect, onSubmit } =
-    useForecast();
+  const {
+    input,
+    options,
+    forecast,
+    onInputChange,
+    onOptionSelect,
+    onSubmit,
+    resetForecast,
+  } = useForecast();
 
   return (
     <>
-      <main className="bg-sunset flex h-[100vh] w-full items-center justify-center bg-auto bg-center">
+      <main className="flex h-[100vh] w-full items-center justify-center bg-sunset bg-auto bg-center">
         {forecast ? (
-          <Forecast data={forecast} />
+          <Forecast data={forecast} onReset={resetForecast} />
         ) : (
           <Search
             input={input}
