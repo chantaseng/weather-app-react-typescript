@@ -5,7 +5,7 @@ type Props = {
   description: string;
 };
 
-function Tile({ icon, title, info, description }: Props): JSX.Element {
+const TileMobile = ({ icon, title, info, description }: Props): JSX.Element => {
   return (
     <div className="flex h-[180px] w-[150px] flex-col justify-between rounded bg-white/20 p-2 text-white drop-shadow-lg backdrop-blur-lg">
       <div className="flex items-center text-sm font-bold">
@@ -16,6 +16,6 @@ function Tile({ icon, title, info, description }: Props): JSX.Element {
       <p className="text-sm font-bold">{description}</p>
     </div>
   );
-}
+};
 
-export default Tile;
+export default TileMobile;

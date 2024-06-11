@@ -18,7 +18,7 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
   </span>
 );
 
-function Forecast1({ data, onReset }: Props) {
+const ForecastXL = ({ data, onReset }: Props) => {
   const today = data.list[0];
 
   const getSunTime = (timestamp: number, timezoneOffset: number): string => {
@@ -92,7 +92,7 @@ function Forecast1({ data, onReset }: Props) {
         <div className="lg:mt- flex justify-between text-gray-300">
           <div>
             <p className="lg:text-2xl 2xl:text-3xl">
-              {today.weather[0].main}, {today.weather[0].description}
+              {today.weather[0].main} {today.weather[0].description}
             </p>
             <p className="lg:text-2xl 2xl:text-3xl">
               H: <Degree temp={Math.ceil(today.main.temp_max)} /> L:{" "}
@@ -191,135 +191,6 @@ function Forecast1({ data, onReset }: Props) {
       </span>
     </div>
   );
-}
-export default Forecast1;
+};
 
-// 1900PX SCREEN
-// return (
-//   <div className="relative h-full xl:ml-96 xl:mr-96">
-//     <div className="flex flex-col">
-//       <div className="mt-20 flex items-center text-white">
-//         <div className="mr-4">
-//           <h2 className="flex xl:text-[230px]">
-//             <Degree temp={Math.round(today.main.temp)} />C
-//           </h2>
-//         </div>
-//         <div className="ml-4 text-8xl uppercase">
-//           <h2>{data.name},</h2>
-//           <span>{data.country}</span>
-//         </div>
-//       </div>
-
-//       <div className="flex justify-between text-gray-300">
-//         <div>
-//           <p className="text-3xl">
-//             {today.weather[0].main} {today.weather[0].description}
-//           </p>
-//           <p className="text-3xl">
-//             H: <Degree temp={Math.ceil(today.main.temp_max)} /> L:{" "}
-//             <Degree temp={Math.floor(today.main.temp_min)} />
-//           </p>
-//         </div>
-
-//         <div>
-//           <section className="scrollbar-hide mb-5 mt-4 flex w-[500px] overflow-x-scroll pb-2">
-//             {data.list.map((item, i) => (
-//               <div
-//                 className="inline-block w-[100px] flex-shrink-0 text-center"
-//                 key={i}
-//               >
-//                 <p className="border-b-2 border-gray-400 pb-2 text-sm">
-//                   {i === 0 ? "Now" : new Date(item.dt * 1000).getHours()}
-//                 </p>
-//                 <img
-//                   src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-//                   alt={`weather-icon-${item.weather[0].description}`}
-//                 />
-//                 <p className="text-sm font-bold">
-//                   <Degree temp={Math.round(item.main.temp)} />
-//                 </p>
-//               </div>
-//             ))}
-//           </section>
-//         </div>
-//       </div>
-
-//       <div className="mt-5 flex justify-around text-white">
-//         <div>
-//           <div className="mt-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
-//             <BsSunriseFill className="text-xl" />
-//             <span className="mt-2">
-//               {getSunTime(data.sunrise, data.timezone)}
-//             </span>
-//           </div>
-//           <div className="mt-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
-//             <BsSunsetFill className="text-xl" />
-//             <span className="mt-2">
-//               {getSunTime(data.sunset, data.timezone)}
-//             </span>
-//           </div>
-//         </div>
-
-//         <div className="">
-//           <Tile
-//             icon={<PiWindBold />}
-//             title="Wind"
-//             info={`${Math.round(today.wind.speed)} km/h`}
-//             description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
-//           />
-//         </div>
-
-//         <div>
-//           <Tile
-//             icon={<LiaTemperatureHighSolid />}
-//             title="Feels like"
-//             info={<Degree temp={Math.round(today.main.feels_like)} />}
-//             description={`Feels ${Math.round(today.main.feels_like) < Math.round(today.main.temp) ? "colder" : "warmer"}`}
-//           />
-//         </div>
-
-//         <div>
-//           <Tile
-//             icon={<PiEyeBold />}
-//             title="Visibility"
-//             info={`${(today.visibility / 1000).toFixed()} km`}
-//             description={getVisibilityValue(today.visibility)}
-//           />
-//         </div>
-
-//         <div>
-//           <Tile
-//             icon={<WiHumidity />}
-//             title="Humidity"
-//             info={`${today.main.humidity}%`}
-//             description={getHumidityValue(today.main.humidity)}
-//           />
-//         </div>
-
-//         <div>
-//           <Tile
-//             icon={<PiDrop />}
-//             title="Precipitation"
-//             info={`${Math.round(today.pop)}%`}
-//             description={`${getPrecipitation(today.pop)}, clouds at ${today.clouds.all}%`}
-//           />
-//         </div>
-
-//         <div>
-//           <Tile
-//             icon={<WiBarometer />}
-//             title="Pressure"
-//             info={`${today.main.pressure} hPa`}
-//             description={`${Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"} than standard`}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//     <span
-//       onClick={onReset}
-//       className="absolute top-12 cursor-pointer text-white"
-//     >
-//       <FaArrowLeftLong size={24} />
-//     </span>
-//   </div>
-// );
+export default ForecastXL;
