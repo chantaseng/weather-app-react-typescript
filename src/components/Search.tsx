@@ -24,7 +24,7 @@ function Search({
         </h1>
 
         <p className="mt-2 text-sm">
-          Enter below a place you want to now the weather of and select an
+          Enter below a place you want to know the weather of and select an
           option from the dropdown
         </p>
 

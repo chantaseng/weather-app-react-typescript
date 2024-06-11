@@ -7,7 +7,7 @@ type Props = {
 
 function Tile({ icon, title, info, description }: Props): JSX.Element {
   return (
-    <div className="mb-5 flex h-[130px] w-[140px] flex-col justify-between rounded bg-white/20 p-2 text-zinc-700 drop-shadow-lg backdrop-blur-lg">
+    <div className="mt-5 flex h-[180px] w-[150px] flex-col justify-between rounded bg-white/20 p-2 text-white drop-shadow-lg backdrop-blur-lg">
       <div className="flex items-center text-sm font-bold">
         <h4>{icon}</h4>
         <h4 className="ml-1">{title}</h4>
