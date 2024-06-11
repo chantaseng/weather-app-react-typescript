@@ -7,7 +7,7 @@ type Props = {
 
 const TileMobile = ({ icon, title, info, description }: Props): JSX.Element => {
   return (
-    <div className="flex h-[180px] w-[150px] flex-col justify-between rounded bg-white/20 p-2 text-white drop-shadow-lg backdrop-blur-lg">
+    <div className="mb-5 flex h-[150px] w-[150px] flex-col justify-between rounded bg-white/20 p-2 text-white drop-shadow-lg backdrop-blur-lg">
       <div className="flex items-center text-sm font-bold">
         <h4>{icon}</h4>
         <h4 className="ml-1">{title}</h4>

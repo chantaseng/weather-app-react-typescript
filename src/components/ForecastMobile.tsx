@@ -23,8 +23,6 @@ const ForecastMobile = ({ data, onReset }: Props) => {
 
   const getSunTime = (timestamp: number, timezoneOffset: number): string => {
     const date = new Date((timestamp + timezoneOffset) * 1000);
-    // console.log(timestamp);
-    // console.log(timezoneOffset);
     let hours = date.getUTCHours().toString();
     let minutes = date.getMinutes().toString();
 
@@ -74,7 +72,7 @@ const ForecastMobile = ({ data, onReset }: Props) => {
 
   return (
     <div className="h-full w-full rounded py-4 text-white">
-      <div className="mx-auto w-[300px]">
+      <div className="mx-auto w-[350px]">
         <section className="text-center">
           <h2 className="text-2xl font-black">
             {data.name}
@@ -113,13 +111,13 @@ const ForecastMobile = ({ data, onReset }: Props) => {
         </section>
 
         <section className="flex flex-wrap justify-between text-white">
-          <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
+          <div className="mb-5 flex w-[150px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
             <BsSunriseFill className="text-xl" />
             <span className="mt-2">
               {getSunTime(data.sunrise, data.timezone)}
             </span>
           </div>
-          <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
+          <div className="mb-5 flex w-[150px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
             <BsSunsetFill className="text-xl" />
             <span className="mt-2">
               {getSunTime(data.sunset, data.timezone)}

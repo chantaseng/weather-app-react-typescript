@@ -5,6 +5,7 @@ import { PiDrop, PiEyeBold, PiWindBold } from "react-icons/pi";
 import { LiaTemperatureHighSolid } from "react-icons/lia";
 import { WiBarometer, WiHumidity } from "react-icons/wi";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import ForecastInformations from "./ForecastInformations";
 
 type Props = {
   data: forecastType;
@@ -18,13 +19,11 @@ const Degree = ({ temp }: { temp: number }): JSX.Element => (
   </span>
 );
 
-const Forecast2XL = ({ data, onReset }: Props) => {
+function ForecastMD({ data, onReset }: Props) {
   const today = data.list[0];
 
   const getSunTime = (timestamp: number, timezoneOffset: number): string => {
     const date = new Date((timestamp + timezoneOffset) * 1000);
-    // console.log(timestamp);
-    // console.log(timezoneOffset);
     let hours = date.getUTCHours().toString();
     let minutes = date.getMinutes().toString();
 
@@ -73,38 +72,39 @@ const Forecast2XL = ({ data, onReset }: Props) => {
   };
 
   return (
-    <div className="relative h-full lg:ml-36 lg:mr-36 2xl:ml-96 2xl:mr-96">
+    <div className="relative mx-24 h-full">
       <div className="flex flex-col">
         {/* first section */}
-        <div className="flex items-center text-white lg:mt-8 2xl:mt-20">
+        <div className="mt-24 flex items-center text-white lg:mt-36">
           <div className="mr-4">
-            <h2 className="flex lg:text-[200px] 2xl:text-[230px]">
+            <h2 className="flex text-8xl lg:text-[160px]">
               <Degree temp={Math.round(today.main.temp)} />C
             </h2>
           </div>
-          <div className="ml-4 uppercase lg:text-8xl 2xl:text-8xl">
-            <h2>{data.name},</h2>
-            <span>{data.country}</span>
+          <div className="ml-4 text-6xl uppercase lg:text-7xl">
+            <h2>
+              {data.name}, {data.country}
+            </h2>
           </div>
         </div>
 
         {/* second section */}
-        <div className="lg:mt- flex justify-between text-gray-300">
+        <div className="mt-10 flex justify-between text-gray-300">
           <div>
-            <p className="lg:text-2xl 2xl:text-3xl">
-              {today.weather[0].main} {today.weather[0].description}
+            <p className="text-2xl lg:text-3xl">
+              {today.weather[0].main}, {today.weather[0].description}
             </p>
-            <p className="lg:text-2xl 2xl:text-3xl">
+            <p className="text-2xl lg:text-3xl">
               H: <Degree temp={Math.ceil(today.main.temp_max)} /> L:{" "}
               <Degree temp={Math.floor(today.main.temp_min)} />
             </p>
           </div>
 
           <div>
-            <section className="scrollbar-hide mb-5 mt-4 flex overflow-x-scroll pb-2 lg:w-[400px] 2xl:w-[500px]">
+            <section className="scrollbar-hide mb-5 mt-4 flex w-[250px] overflow-x-scroll pb-2 lg:w-[350px]">
               {data.list.map((item, i) => (
                 <div
-                  className="inline-block flex-shrink-0 text-center lg:w-[100px] 2xl:w-[100px]"
+                  className="inline-block w-[50px] flex-shrink-0 text-center lg:w-[70px]"
                   key={i}
                 >
                   <p className="border-b-2 border-gray-400 pb-2 text-sm">
@@ -124,63 +124,68 @@ const Forecast2XL = ({ data, onReset }: Props) => {
         </div>
 
         {/* third section */}
-        <section className="flex justify-around text-white lg:mt-10">
-          <div>
-            <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
-              <BsSunriseFill className="text-xl" />
+        <div className="md:block lg:hidden">
+          <ForecastInformations data={data} />
+        </div>
+        <section className="hidden text-white lg:block">
+          <div className="mt-10 flex justify-around">
+            <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg lg:h-[100px] lg:w-[200px]">
+              <BsSunriseFill className="text-xl lg:text-3xl" />
               <span className="mt-2">
                 {getSunTime(data.sunrise, data.timezone)}
               </span>
             </div>
-            <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg">
-              <BsSunsetFill className="text-xl" />
+            <div className="mb-5 flex w-[140px] flex-col items-center rounded bg-white/20 py-4 text-sm font-bold drop-shadow-lg backdrop-blur-lg lg:h-[100px] lg:w-[200px]">
+              <BsSunsetFill className="text-xl lg:text-3xl" />
               <span className="mt-2">
                 {getSunTime(data.sunset, data.timezone)}
               </span>
             </div>
           </div>
 
-          <Tile
-            icon={<PiWindBold />}
-            title="Wind"
-            info={`${Math.round(today.wind.speed)} km/h`}
-            description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
-          />
+          <div className="mt-10 flex flex-wrap justify-around lg:flex-nowrap">
+            <Tile
+              icon={<PiWindBold />}
+              title="Wind"
+              info={`${Math.round(today.wind.speed)} km/h`}
+              description={`${getWindDirection(today.wind.deg)}, gust ${today.wind.gust.toFixed(1)} km/h`}
+            />
 
-          <Tile
-            icon={<LiaTemperatureHighSolid />}
-            title="Feels like"
-            info={<Degree temp={Math.round(today.main.feels_like)} />}
-            description={`Feels ${Math.round(today.main.feels_like) < Math.round(today.main.temp) ? "colder" : "warmer"}`}
-          />
+            <Tile
+              icon={<LiaTemperatureHighSolid />}
+              title="Feels like"
+              info={<Degree temp={Math.round(today.main.feels_like)} />}
+              description={`Feels ${Math.round(today.main.feels_like) < Math.round(today.main.temp) ? "colder" : "warmer"}`}
+            />
 
-          <Tile
-            icon={<WiHumidity />}
-            title="Humidity"
-            info={`${today.main.humidity}%`}
-            description={getHumidityValue(today.main.humidity)}
-          />
+            <Tile
+              icon={<WiHumidity />}
+              title="Humidity"
+              info={`${today.main.humidity}%`}
+              description={getHumidityValue(today.main.humidity)}
+            />
 
-          <Tile
-            icon={<PiDrop />}
-            title="Precipitation"
-            info={`${Math.round(today.pop)}%`}
-            description={`${getPrecipitation(today.pop)}, clouds at ${today.clouds.all}%`}
-          />
+            <Tile
+              icon={<PiDrop />}
+              title="Precipitation"
+              info={`${Math.round(today.pop)}%`}
+              description={`${getPrecipitation(today.pop)}, clouds at ${today.clouds.all}%`}
+            />
 
-          <Tile
-            icon={<WiBarometer />}
-            title="Pressure"
-            info={`${today.main.pressure} hPa`}
-            description={`${Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"} than standard`}
-          />
+            <Tile
+              icon={<WiBarometer />}
+              title="Pressure"
+              info={`${today.main.pressure} hPa`}
+              description={`${Math.round(today.main.pressure) < 1013 ? "Lower" : "Higher"} than standard`}
+            />
 
-          <Tile
-            icon={<PiEyeBold />}
-            title="Visibility"
-            info={`${(today.visibility / 1000).toFixed()} km`}
-            description={getVisibilityValue(today.visibility)}
-          />
+            <Tile
+              icon={<PiEyeBold />}
+              title="Visibility"
+              info={`${(today.visibility / 1000).toFixed()} km`}
+              description={getVisibilityValue(today.visibility)}
+            />
+          </div>
         </section>
       </div>
       <span
@@ -191,6 +196,5 @@ const Forecast2XL = ({ data, onReset }: Props) => {
       </span>
     </div>
   );
-};
-
-export default Forecast2XL;
+}
+export default ForecastMD;
